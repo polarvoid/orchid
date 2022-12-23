@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    #__next {
+        @apply h-full bg-[#F1F1F1] overflow-scroll;
+    }
+
+    html,
+    body {
+        @apply h-full;
+    }
+}
