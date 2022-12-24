@@ -23,15 +23,10 @@ export default function Home() {
             <div data-theme={currentTheme}>
               <Default />
             </div>
-            <div className="w-full h-12 bg-base-300 flex flex-row-reverse">
-              <button className="btn btn-secondary rounded-none">
-                Download
-              </button>
-            </div>
           </div>
         </div>
         <div className="drawer-side">
-          <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
+          <label htmlFor="sidebar" className="drawer-overlay"></label>
           <ul className="menu p-4 w-80 bg-base-200 text-base-content">
             <ThemePicker
               currentTheme={currentTheme}
@@ -39,6 +34,10 @@ export default function Home() {
             />
             <li>
               <a>Sidebar Item 2</a>
+            </li>
+            <div className="divider"></div>
+            <li className="bg-primary rounded-btn text-primary-content">
+              <a className="w-full place-content-center">Download</a>
             </li>
           </ul>
         </div>

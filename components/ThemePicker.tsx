@@ -74,7 +74,11 @@ export default function ThemePicker({
 }: ThemePickerProps) {
   return (
     <div title="Change Theme" className="dropdown dropdown-end ">
-      <div tabIndex={0} className="btn gap-1 normal-case btn-ghost w-full">
+      <div
+        tabIndex={0}
+        className="btn gap-1 normal-case btn-ghost w-full justify-start bg-base-100 hover:bg-base-200 text-base-content rounded-lg mb-4"
+        data-theme={currentTheme}
+      >
         <svg
           width="20"
           height="20"
@@ -90,7 +94,7 @@ export default function ThemePicker({
             d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
           ></path>
         </svg>{" "}
-        <span className="inline">{currentTheme}</span>{" "}
+        <span className="inline">Theme ({currentTheme})</span>{" "}
         <svg
           width="12px"
           height="12px"
