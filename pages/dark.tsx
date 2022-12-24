@@ -23,7 +23,7 @@ const Dark = () => {
     };
 
     const overlayStyle = {
-        "box-shadow": "0 0 0 10000px rgba(0,0,0,1), 0 0 10px 20px rgba(0,0,0,0.7) inset, 0 0 30px 40px rgba(0,0,0,0.3) inset"
+        "boxShadow": "0 0 0 10000px rgba(0,0,0,1), 0 0 20px 20px rgba(0,0,0,0.8) inset, 0 0 40px 40px rgba(0,0,0,0.6) inset, 0 0 60px 60px rgba(0,0,0,0.4) inset"
     };
     return (
         <div className="bg-gray-200 text-black w-full h-full" onMouseMove={onMouseMove}>
@@ -33,8 +33,8 @@ const Dark = () => {
                     <p className="font-normal text-sm">We could not find what you were looking for.</p>
                 </div>
             </div>
-            <Switch isOn={lightOn} onChangeHandler={switchFlipHandler} position={switchPosition} />
-            <div className={`${lightOn ? "hidden" : ""} w-[150px] h-[150px] rounded-full fixed top-0 left-0 -translate-x-1/2 -translate-y-1/2 z-40 pointer-events-none`} style={overlayStyle} ref={searchLightRef}></div>
+            {!lightOn && <Switch isOn={lightOn} onChangeHandler={switchFlipHandler} position={switchPosition} />}
+            {!lightOn && <div className={`w-[200px] h-[200px] rounded-full fixed top-0 left-0 -translate-x-1/2 -translate-y-1/2 z-40 pointer-events-none`} style={overlayStyle} ref={searchLightRef}></div>}
         </div >
     );
 };
