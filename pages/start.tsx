@@ -1,15 +1,20 @@
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import React, { Fragment, useState } from 'react';
-import { TitleBar } from 'react-desktop/macOs';
+import React, { useState } from 'react';
 
 const Start = () => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
+    const [error, setError] = useState("");
 
     const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
-        alert(`Name: ${name} Description: ${description}`);
         e.preventDefault();
+        if (!name.trim()) {
+            setError("This field is required");
+            return;
+        }
+        setError("");
+        alert(`Name: ${name} Description: ${description}`);
     };
 
     const onChangeName = (e) => {
@@ -35,18 +40,21 @@ const Start = () => {
                 </div>
                 <div className="w-4/6 h-4/6 grow mb-4 bg-[#F1F1F1] rounded-xl flex flex-col">
                     <form className="grow w-full bg-white shadow-md rounded-3xl px-8 pt-6 pb-8 mb-4 flex flex-col gap-6" onSubmit={onSubmit} >
-                        <div>
-                            <label className="block text-black text-3xl font-black font-[Satoshi] mb-2" htmlFor="username">
-                                Name
+                        <div className="block">
+                            <label className="label " htmlFor="username">
+                                <span className="label-text text-black text-3xl font-black font-[Satoshi]">Name</span>
                             </label>
-                            <input className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-gray-700 bg-[#F0F0F0] leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Enter your project name" value={name} onChange={onChangeName} />
+                            <input className={`input input-bordered w-full ${error && "input-error"}`} id="username" type="text" placeholder="Enter your project name" value={name} onChange={onChangeName} />
+                            <label className="label">
+                                <span className="label-text-alt">{error}</span>
+                            </label>
                         </div>
 
                         <div className='grow flex flex-col'>
-                            <label className="block text-black text-3xl font-black font-[Satoshi] mb-2" htmlFor="username">
-                                Description
+                            <label className="label " htmlFor="description">
+                                <span className="label-text text-black text-3xl font-black font-[Satoshi]">Description</span>
                             </label>
-                            <textarea className="grow shadow appearance-none border rounded-xl w-full py-2 px-3 text-gray-700 bg-[#F0F0F0] leading-tight focus:outline-none focus:shadow-outline" id="descrition" placeholder="Enter your project description" value={description} onChange={onChangeDescription} />
+                            <input className="input input-bordered w-full" id="descrition" type="text" placeholder="Enter your project description" value={description} onChange={onChangeDescription} />
                         </div>
 
                         <div className="w-fit rounded-3xl mt-auto flex justify-center items-center py-2 px-8 bg-black/25 text-black">
