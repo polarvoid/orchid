@@ -7,7 +7,7 @@ const homepage = () => {
         <div className="flex flex-col h-full">
             <Navbar />
             <main className="flex grow">
-                <div className="mt-40 flex flex-col items-center grow">
+                <div className="mt-[10%] flex flex-col items-center grow text-center">
                     <p className="w-[40%] font-bold text-black text-7xl" >
                         Create your own<br></br>
                         beautiful brand
