@@ -3,10 +3,18 @@ import Image from "next/image";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import ThemePicker, { theme } from "../components/ThemePicker";
-import Default from "../public/templates/default";
+import App from "../public/templates/default";
+
+type config = {
+  title: string;
+  description: string;
+  theme: theme;
+};
 
 export default function Editor() {
-  const [currentTheme, setCurrentTheme] = useState<theme>("dracula");
+  const [currentTheme, setCurrentTheme] = useState<theme>("light");
+  const [title, setTitle] = useState<string>("My Awesome Website");
+  const [description, setDescription] = useState<string>("");
   return (
     <>
       <Head>
@@ -21,13 +29,24 @@ export default function Editor() {
         <div className="drawer-content">
           <div className="mockup-window border bg-base-300 m-8">
             <div data-theme={currentTheme}>
-              <Default />
+              <App config={{ title, theme: currentTheme, description }} />
             </div>
           </div>
         </div>
         <div className="drawer-side">
           <label htmlFor="sidebar" className="drawer-overlay"></label>
           <ul className="menu p-4 w-80 bg-base-200 text-base-content">
+            <input
+              type="text"
+              placeholder="My Awesome Website"
+              className="input input-bordered input-secondary w-full max-w-xs mb-4"
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <textarea
+              className="textarea mb-4"
+              placeholder="Description"
+              onChange={(e) => setDescription(e.target.value)}
+            ></textarea>
             <ThemePicker
               currentTheme={currentTheme}
               setCurrentTheme={setCurrentTheme}

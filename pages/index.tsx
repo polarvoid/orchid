@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -26,9 +27,11 @@ export default function Home() {
               <p className="pb-6 pt-2 text-base-200">
                 Are you ready to give it a try?
               </p>
-              <button className="btn btn-primary text-primary-content">
-                Get Started
-              </button>
+              <Link href="/Editor">
+                <button className="btn btn-primary text-primary-content">
+                  Get Started
+                </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -45,7 +48,7 @@ export default function Home() {
                 <TeamMemberCard
                   name="Suven Pandey"
                   role="Not Noodles Expert"
-                  image=""
+                  image="/team/suven.jpg"
                 />
                 <TeamMemberCard
                   name="Datta Velivela"
