@@ -1,8 +1,12 @@
 import Head from "next/head";
 import Image from "next/image";
-import Navbar from "../public/templates/navbar";
+import { useState } from "react";
+import Navbar from "../components/Navbar";
+import ThemePicker, { theme } from "../components/ThemePicker";
+import Default from "../public/templates/default";
 
 export default function Home() {
+  const [currentTheme, setCurrentTheme] = useState<theme>("halloween");
   return (
     <>
       <Head>
@@ -11,12 +15,31 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="mockup-window border bg-base-300 m-8">
-        <div data-theme="halloween">
-          <Navbar />
+      <Navbar />
+      <div className="drawer drawer-mobile">
+        <input id="sidebar" type="checkbox" className="drawer-toggle" />
+        <div className="drawer-content">
+          <div className="mockup-window border bg-base-300 m-8">
+            <div data-theme={currentTheme}>
+              <Default />
+            </div>
+          </div>
         </div>
-        <div className="w-full h-12 bg-base-300 flex flex-row-reverse">
-          <button className="btn btn-secondary rounded-none">Download</button>
+        <div className="drawer-side">
+          <label htmlFor="sidebar" className="drawer-overlay"></label>
+          <ul className="menu p-4 w-80 bg-base-200 text-base-content">
+            <ThemePicker
+              currentTheme={currentTheme}
+              setCurrentTheme={setCurrentTheme}
+            />
+            <li>
+              <a>Sidebar Item 2</a>
+            </li>
+            <div className="divider"></div>
+            <li className="bg-primary rounded-btn text-primary-content">
+              <a className="w-full place-content-center">Download</a>
+            </li>
+          </ul>
         </div>
       </div>
     </>

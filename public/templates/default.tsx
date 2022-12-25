@@ -1,4 +1,4 @@
-export default function Navbar() {
+export default function Default() {
   return (
     <>
       <div className="relative flex flex-col justify-center overflow-hidden bg-primary py-6 sm:py-12">
