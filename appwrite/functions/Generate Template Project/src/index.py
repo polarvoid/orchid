@@ -1,6 +1,10 @@
 from appwrite.client import Client
 from appwrite.id import ID
 from appwrite.input_file import InputFile
+from zipfile import ZipFile
+import json
+import os
+import random
 
 # You can remove imports of services you don't use
 from appwrite.services.account import Account
@@ -42,6 +46,8 @@ def main(req, res):
 
   bucket_id = '63a697019e70119538d3'
 
+  config = req.payload
+
   if not req.variables.get('APPWRITE_FUNCTION_ENDPOINT') or not req.variables.get('APPWRITE_FUNCTION_API_KEY'):
     print('Environment variables are not set. Function cannot use Appwrite SDK.')
   else:
@@ -53,9 +59,30 @@ def main(req, res):
       .set_self_signed(True)
     )
 
-    result = storage.create_file(bucket_id, ID.unique(), InputFile.from_path('README.md'))
+    APP_PATH = os.getcwd()
+    TEMP_SUFFIX = random.randint(0, 500000)
+    print("PATH to directory", APP_PATH)
+
+    temp_dir = os.path.join(APP_PATH, f"template-{TEMP_SUFFIX}")
+    print("New temporary directory", temp_dir)
+
+    # try:
+    #   os.makedirs(temp_dir)
+    # except OSError as error:
+    #   print(error)
+    # print(os.listdir())
+
+    vitamin_file = storage.get_file_download(bucket_id, 'vitamin_template')
+    with open("user-template.zip", "wb") as f:
+      f.write(vitamin_file)
+
+    # # result = storage.create_file(bucket_id, ID.unique(), InputFile.from_path('README.md'))
+    # with open(os.path.join(temp_dir, "config.json"), "w") as f: 
+    #   f.write(config)
+    result = os.listdir()
     print(result)
-    return res.json(result)
+
+    # return res.json(result)
   
   return res.json({
     "areDevelopersAwesome": True,
