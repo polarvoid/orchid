@@ -3,13 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import ThemePicker, { theme } from "../components/ThemePicker";
-import App from "../public/templates/default";
-
-type config = {
-  title: string;
-  description: string;
-  theme: theme;
-};
+import App from "../public/templates/Project";
 
 export default function Editor() {
   const [currentTheme, setCurrentTheme] = useState<theme>("light");
@@ -24,10 +18,10 @@ export default function Editor() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <div className="drawer drawer-mobile">
+      <div className="drawer drawer-mobile" data-theme="night">
         <input id="sidebar" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
-          <div className="mockup-window border bg-base-300 m-8">
+          <div className="mockup-window border border-base-content bg-base-300 m-8">
             <div data-theme={currentTheme}>
               <App config={{ title, theme: currentTheme, description }} />
             </div>
@@ -42,22 +36,37 @@ export default function Editor() {
               className="input input-bordered input-secondary w-full max-w-xs mb-4"
               onChange={(e) => setTitle(e.target.value)}
             />
-            <textarea
-              className="textarea mb-4"
-              placeholder="Description"
-              onChange={(e) => setDescription(e.target.value)}
-            ></textarea>
             <ThemePicker
               currentTheme={currentTheme}
               setCurrentTheme={setCurrentTheme}
             />
-            <li>
-              <a>Sidebar Item 2</a>
-            </li>
+            <textarea
+              className="textarea textarea-bordered"
+              placeholder="Description"
+              onChange={(e) => setDescription(e.target.value)}
+            ></textarea>
             <div className="divider"></div>
             <li className="bg-primary rounded-btn text-primary-content">
               <a className="w-full place-content-center">Download</a>
             </li>
+            <div className="divider font-mono">ADVANCED</div>
+            <div className="mockup-code w-72">
+              <pre>
+                <code>{"{"}</code>
+              </pre>
+              <pre>
+                <code>{`  "title": "${title}",`}</code>
+              </pre>
+              <pre>
+                <code>{`  "description": "${description}",`}</code>
+              </pre>
+              <pre>
+                <code>{`  "theme": "${currentTheme}"`}</code>
+              </pre>
+              <pre>
+                <code>{"}"}</code>
+              </pre>
+            </div>
           </ul>
         </div>
       </div>
