@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 
 const Dark = () => {
@@ -27,17 +28,26 @@ const Dark = () => {
     };
     return (
         <div className="bg-gray-200 text-black w-full h-full" onMouseMove={onMouseMove}>
-            <div className="pt-5 flex justify-center">
-                <div className={`${lightOn ? "text-black" : "text-white"} z-50 `}>
-                    <p className="font-bold text-9xl ">404</p>
-                    <p className="font-normal text-sm">We could not find what you were looking for.</p>
-                </div>
+            <div className={`${lightOn ? "text-black" : "text-white"} z-50 h-[400px] pt-5 flex flex-col justify-center`}>
+                {/* <p className="font-bold text-9xl ">404</p> */}
+                <img src="/swing.svg" className="h-full" />
+                <p className="font-normal text-sm text-center z-50">We could not find what you were looking for.</p>
+                {lightOn && <Image src="/404.png" width={200} height={200} className="mx-auto" />}
             </div>
             {!lightOn && <Switch isOn={lightOn} onChangeHandler={switchFlipHandler} position={switchPosition} />}
             {!lightOn && <div className={`w-[200px] h-[200px] rounded-full fixed top-0 left-0 -translate-x-1/2 -translate-y-1/2 z-40 pointer-events-none`} style={overlayStyle} ref={searchLightRef}></div>}
+            {/* {lightOn && <Swing />} */}
         </div >
     );
 };
+
+function Swing() {
+    return (
+        <div className="flex justify-center h-[400px]">
+            <img src="/swing.svg" />
+        </div>
+    );
+}
 
 function getRandom(min: number, max: number) {
     return min + Math.random() * (max - min);
