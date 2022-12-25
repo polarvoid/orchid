@@ -1,3 +1,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    #__next {
+        @apply h-full bg-[#F1F1F1] overflow-scroll;
+    }
+
+    html,
+    body {
+        @apply h-full;
+    }
+
+    /* The switch */
+    .cube-switch .switch {
+        border-radius: 0.7em;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 -7px 0 rgba(0, 0, 0, 0.2), inset 0 50px 10px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.2);
+        transition: all 0.2s ease-out;
+    }
+
+    /* SWITCH Active State */
+    .cube-switch.active .switch {
+        background: #333;
+        box-shadow: inset 0 6px 0 rgba(255, 255, 255, 0.1), inset 0 7px 0 rgba(0, 0, 0, 0.2), inset 0 -50px 10px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(205, 205, 205, 0.1);
+    }
+
+    .cube-switch.active:after,
+    .cube-switch.active:before {
+        background: #333;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), inset 1px 2px 1px rgba(0, 0, 0, 0.5), inset 3px 6px 2px rgba(200, 200, 200, 0.1), inset -1px -2px 1px rgba(0, 0, 0, 0.3);
+    }
+
+    .cube-switch.active .switch:after,
+    .cube-switch.active .switch:before {
+        background: #222;
+        border: none;
+        margin-top: 0;
+        height: 1px;
+    }
+}
