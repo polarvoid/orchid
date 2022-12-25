@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Navbar() {
   return (
     <div className="navbar bg-base-300">
@@ -20,7 +22,15 @@ export default function Navbar() {
             ></path>
           </svg>
         </label>
+        <ul>
+          <li>
+            <Link href="/app" className="btn btn-ghost normal-case">Home</Link>
+            <Link href="https://github.com/polarvoid/orchid" className="btn btn-ghost normal-case">Github</Link>
+            <Link href="/team" className="btn btn-ghost normal-case">Team</Link>
+          </li>
+        </ul>
       </div>
+      <div className="grow"></div>
     </div>
   );
 }
