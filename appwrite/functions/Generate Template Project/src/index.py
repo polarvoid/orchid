@@ -1,3 +1,6 @@
+
+
+
 from appwrite.client import Client
 from appwrite.id import ID
 from appwrite.input_file import InputFile
@@ -7,44 +10,41 @@ import os
 import random
 
 # You can remove imports of services you don't use
-from appwrite.services.account import Account
-from appwrite.services.avatars import Avatars
-from appwrite.services.databases import Databases
-from appwrite.services.functions import Functions
-from appwrite.services.health import Health
-from appwrite.services.locale import Locale
 from appwrite.services.storage import Storage
-from appwrite.services.teams import Teams
-from appwrite.services.users import Users
 
 """
   'req' variable has:
     'headers' - object with request headers
     'payload' - request body data as a string
     'variables' - object with function variables
-
   'res' variable has:
     'send(text, status)' - function to return text response. Status code defaults to 200
     'json(obj, status)' - function to return JSON response. Status code defaults to 200
-
   If an error is thrown, a response with code 500 will be returned.
 """
 
+# WILL APPEND THE DIFFERENT TEMPLATES AS SOON AS I GET THE CODES. THESE ARE JUST THE IDs OF THE STORED FILES IN APPWRITE
+layouts = {'default': 'AppDefault'}
+
 def main(req, res):
+  
   client = Client()
 
-  # You can remove services you don't use
-  account = Account(client)
-  avatars = Avatars(client)
-  database = Databases(client)
-  functions = Functions(client)
   storage = Storage(client)
-  health = Health(client)
-  locale = Locale(client)
-  teams = Teams(client)
-  users = Users(client)
+  
+  bucket_storage_id = '63a7c89e4d1219d77c54'
 
-  bucket_id = '63a697019e70119538d3'
+  config = req.payload
+  config = json.loads(config)
+  layout = config['layout']
+  with open("config.json", "w") as outfile:
+    outfile.write(config)
+
+  def append_zip_file(zip_folder_path, file_to_append=None, dest_path=''):
+    z = ZipFile(zip_folder_path, "a")
+    z.write(file_to_append, dest_path)
+    z.close()
+
 
   config = req.payload
 
@@ -72,11 +72,20 @@ def main(req, res):
     #   print(error)
     # print(os.listdir())
 
-    vitamin_file = storage.get_file_download(bucket_id, 'vitamin_template')
+    vitamin_file = storage.get_file_download(bucket_storage_id, 'vitamin_template')
+    layout_file = storage.get_file_download(bucket_storage_id, layouts[layout])
+
     with open("user-template.zip", "wb") as f:
       f.write(vitamin_file)
 
-    # # result = storage.create_file(bucket_id, ID.unique(), InputFile.from_path('README.md'))
+    with open("App.jsx", "wb") as f:
+      f.write(layout_file)
+
+    append_zip_file('user-template.zip', 'config.json', 'vitamin-main/config.json')
+    append_zip_file('user-template.zip', 'config.json', 'vitamin-main/src/App.jsx')
+
+    result = storage.create_file(bucket_storage_id, ID.unique(), InputFile.from_path('user-template.zip'))
+    
     # with open(os.path.join(temp_dir, "config.json"), "w") as f: 
     #   f.write(config)
     result = os.listdir()
@@ -87,3 +96,5 @@ def main(req, res):
   return res.json({
     "areDevelopersAwesome": True,
   })
+
+main({"payload": "test"})
