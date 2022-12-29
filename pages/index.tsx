@@ -23,11 +23,11 @@ export default function Home() {
             <div data-theme={currentTheme}>
               <Default />
             </div>
-            <div className="w-full h-12 bg-base-300 flex flex-row-reverse">
+            {/* <div className="w-full h-12 bg-base-300 flex flex-row-reverse">
               <button className="btn btn-secondary rounded-none">
                 Download
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="drawer-side">
